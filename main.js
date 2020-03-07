@@ -8,10 +8,10 @@ let canvas = d3
   .append('g')
   .attr('transform', 'translate(50,50)');
 
-let tree = d3.layout.tree().size([400, 400]);
+let tree = d3.tree().size([400, 400]);
 
 d3.json('apiData.json', function(data) {
+  console.log(data);
   let nodes = tree.nodes(data);
   let links = tree.links(nodes);
-  console.log(links);
 });
