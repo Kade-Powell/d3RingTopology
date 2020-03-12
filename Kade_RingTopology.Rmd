@@ -1,0 +1,20 @@
+---
+title: "Ring Topology and Health"
+output: html_notebook
+---
+This is the R code at the moment; what I have done was just copy the ip source and targets paired together in each pair of brackets in your json file and placed them in to vectors by hand. This could be automated with a r or python script.
+```{r}
+links = data.frame(
+  source = c("172.28.126.61", "172.28.126.61", "172.28.126.62", "172.28.126.62", "172.28.126.63", "172.28.126.63", "172.28.126.64", "172.28.126.64", "172.28.126.65", "172.28.126.65", "172.28.126.66", "172.28.126.66", "172.28.126.67", "172.28.126.67", "172.28.126.68", "172.28.126.68", "172.28.177.110", "172.28.177.110", "172.28.19.10", "172.28.19.9"),
+  target = c("172.28.126.62", "172.28.19.9", "172.28.126.61", "172.28.126.63", "172.28.126.62", "172.28.126.64", "172.28.126.63", "172.28.126.65", "172.28.177.110", "172.28.126.64", "172.28.177.110", "172.28.126.67", "172.28.126.68", "172.28.126.66", "172.28.126.67", "172.28.19.10", "172.28.126.65", "172.28.126.66", "172.28.126.68", "172.28.126.61")
+)
+
+library(igraph)
+network = graph_from_data_frame(d = links, directed = T)
+
+library(d3r)
+ring_json <- d3_igraph(network)
+
+write(ring_json, "ring.json")
+```
+
